@@ -1,8 +1,10 @@
 <script lang="ts">
-  import { MyCounterButton } from 'ui';
+  import { page } from '$app/stores';
 </script>
 
-<h1>Web</h1>
-<MyCounterButton />
-
-<p>Visit <a href="https://kit.svelte.dev">kit.svelte.dev</a> to read the documentation</p>
+{#if !$page.data.session}
+<h1>I am not logged in</h1>
+{:else}
+<h1>Welcome {$page.data.session.user.email}</h1>
+<p>I am logged in!</p>
+{/if}
