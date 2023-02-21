@@ -1,20 +1,17 @@
 <script lang="ts">
-	import { invalidate } from '$app/navigation';
 	import { sb } from '$lib/sb';
-	import { onMount } from 'svelte';
+	import { Toaster } from 'svelte-french-toast';
 	import '../app.css';
+	import { user } from '../stores/authStore';
 
-	onMount(() => {
+	$: {
 		const {
 			data: { subscription }
-		} = sb.auth.onAuthStateChange(() => {
-			invalidate('supabase:auth');
+		} = sb.auth.onAuthStateChange((event, session) => {
+			user.set(session?.user);
 		});
-
-		return () => {
-			sb.unsubscribe();
-		};
-	});
+	}
 </script>
 
+<Toaster/>
 <slot />

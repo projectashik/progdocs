@@ -1,4 +1,8 @@
 <script lang="ts">
+	import clsx from "clsx";
+	import Text from "../Text/Text.svelte";
+
+
 	export let label = undefined;
 	export let id = undefined;
 	export let error = undefined;
@@ -11,13 +15,16 @@
 		>
 	{/if}
 	<div
-		class="flex w-full items-center border px-2 dark:bg-neutral-700 dark:border-neutral-500  focus-within:ring-2 ring-primary-600 rounded-lg bg-white"
+		class={clsx(
+			"flex w-full items-center border px-2 dark:bg-neutral-700 dark:border-neutral-500  focus-within:ring-2 ring-primary-600 rounded-lg bg-white",{
+				"border-red-600 dark:border-red-400": error,
+ }		)}
 	>
 		<slot />
 		<slot name="rightItem" />
 	</div>
 
 	{#if error}
-		<div class="text-sm text-red-600 dark:text-red-400 mt-1">{error}</div>
+		<Text as="p" variant="danger" className="mt-0.5">{error}</Text>
 	{/if}
 </div>

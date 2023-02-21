@@ -1,42 +1,72 @@
 <script lang="ts">
 	import FeLogin from '$lib/icons/FeLogin.svelte';
 	import { sb } from '$lib/sb';
+	import { validator } from '@felte/validator-zod';
+	import { confetti } from '@neoconfetti/svelte';
+	import { createForm } from 'felte';
+	import { toast } from 'svelte-french-toast';
 	import { Button, Input, Paper, Text } from 'ui';
+	import { z } from 'zod';
+
+	const loginSchema = z.object({
+		email: z.string({
+			required_error: 'Email is required',
+		}).email("Email must be a valid email address"),
+	})
 
 	let loading = false;
 	let email: string;
 
-	const handleLogin = async () => {
-		try {
-			loading = true;
-			const { error } = await sb.auth.signInWithOtp({ email });
-			if (error) throw error;
-			alert('Check your email for the login link!');
-		} catch (error) {
-			if (error instanceof Error) {
-				alert(error.message);
-			}
-		} finally {
-			loading = false;
-		}
+	const handleLogin = async (values) => {
+		loading= true;
+		await sb.auth.signInWithOtp({ email: values.email });
 	};
+
+	let loginButton;
+
+	let showConfetti = false;
+
+	const {form: loginForm, errors, setErrors } = createForm({
+		onSubmit: handleLogin,
+		onSuccess: async () => {
+			loading = false;
+			showConfetti = true;
+			setTimeout(() => {
+				showConfetti = false;
+			}, 3000);
+			toast.success("Check your email for a login link");
+		},
+		onError: (error) => {
+			loading = false;
+			setErrors('email', error.message)
+			console.log('error:', error)
+		},
+		extend: validator({
+			schema: loginSchema,
+		})
+	})
 </script>
 
 <Paper shadow="lg" className="max-w-md mx-auto mt-20 rounded-md border p-6">
-	<form class="row flex-center flex flex-col space-y-3" on:submit|preventDefault={handleLogin}>
-		<Text size="xl">Login</Text>
+	<form use:loginForm class="relative row flex-center flex flex-col space-y-3">
+		<Text size="2xl">Login</Text>
 		<Input
-			error="You got it wrong."
-			id="email"
-			bind:value={email}
+				error={$errors.email}
+				className="text-lg"
+			name="email"
 			label="Email"
 			placeholder="Your Email"
 			type="text"
 		/>
 		<div>
-			<Button icon={FeLogin} variant="primary" iconPosition="right" type="submit" {loading}
+			<Button bind:this={loginButton} icon={FeLogin} variant="primary" iconPosition="right" type="submit" {loading}
 				>Login</Button
 			>
+			{#if showConfetti}
+				<div>
+					<div class="absolute inset-0" use:confetti={{ duration: 1500  }} />
+				</div>
+			{/if}
 		</div>
 	</form>
 </Paper>
