@@ -1,0 +1,32 @@
+.paper-shadow {
+	@apply shadow;
+}
+
+.paper-shadow-sm {
+	@apply shadow-sm;
+}
+
+/* base, md, lg, xl, 2xl */
+.paper-shadow-md {
+	@apply shadow-md;
+}
+
+.paper-shadow-lg {
+	@apply shadow-lg;
+}
+
+.paper-shadow-xl {
+	@apply shadow-xl;
+}
+
+.paper-shadow-2xl {
+	@apply shadow-2xl;
+}
+
+.paper-shadow-inner {
+	@apply shadow-inner;
+}
+
+.paper-shadow-none {
+	@apply shadow-none;
+}

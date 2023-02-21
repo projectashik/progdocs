@@ -13,5 +13,8 @@
   "devDependencies": {
     "eslint-config-custom": "workspace:*",
     "svelte": "^3.9.2"
+  },
+  "dependencies": {
+    "clsx": "^1.2.1"
   }
 }

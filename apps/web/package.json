@@ -19,10 +19,15 @@
   "devDependencies": {
     "@sveltejs/adapter-auto": "latest",
     "@sveltejs/kit": "latest",
+    "@tailwindcss/forms": "^0.5.3",
+    "@tailwindcss/typography": "^0.5.9",
+    "autoprefixer": "^10.4.13",
     "eslint-config-custom": "workspace:*",
+    "postcss": "^8.4.21",
     "svelte": "^3.44.0",
     "svelte-check": "^2.7.1",
     "svelte-preprocess": "^4.10.6",
+    "tailwindcss": "^3.2.7",
     "tslib": "^2.3.1",
     "typescript": "^4.7.2",
     "vite": "^4.0.0"
