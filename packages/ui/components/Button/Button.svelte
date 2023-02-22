@@ -1,20 +1,17 @@
 <script lang="ts">
 	import clsx from 'clsx';
-	import { ComponentProps, SvelteComponent } from 'svelte';
+	import { SvelteComponent } from 'svelte';
 	import Loader from '../icons/Loader.svelte';
 	import ButtonContainer from './ButtonContainer.svelte';
 
-	interface $$Props extends ComponentProps<ButtonContainer> {
-		icon?: SVGElement;
-		iconPosition?: 'left' | 'right';
-		loading?: boolean;
-	}
+	// Props
+	let as: HTMLElement | SvelteComponent = 'button';
+	let icon: SVGElement;
+	let iconPosition: 'left' | 'right' = 'left';
+	let loading: boolean = false;
+	let disabled: boolean = false;
 
-	export let as: HTMLElement | SvelteComponent = 'button';
-	export let icon: SVGElement;
-	export let iconPosition: 'left' | 'right' = 'left';
-	export let loading: boolean = false;
-	export let disabled: boolean = false;
+	export { as, icon, iconPosition, loading, disabled };
 </script>
 
 <ButtonContainer disabled={disabled || loading} {as} {loading} {...$$restProps}>
