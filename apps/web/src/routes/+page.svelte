@@ -1,16 +1,23 @@
 <script lang="ts">
-	import { Button, Text } from 'ui';
-	import { user } from '../stores/authStore';
+	import { sb } from '$lib/sb';
+	import { Text } from 'ui';
+	import { sessionStore as session } from '../stores/authStore';
+
+	const onLogout = async () => {
+		console.log('Done');
+		const { error } = await sb.auth.signOut();
+		if (error) {
+			console.error(error);
+		}
+	};
 </script>
 
-{#if !$user}
+{#if !$session}
 	<Text as="h1">I am not logged in</Text>
-	<Button as="a" href="/auth/login" variant="primary">Login</Button>
+	<a class="btn btn-primary" href="/auth/login" variant="primary">Login</a>
 {:else}
-	<Text as="h1" size="lg">Welcome {$user.email}</Text>
+	<Text as="h1" size="lg">Welcome {$session.user.email}</Text>
 	<Text>I am logged in!</Text>
 
-	<form action="/auth/logout" method="POST">
-		<Button type="submit" variant="primary">Logout</Button>
-	</form>
+	<button class="btn btn-primary" on:click={onLogout}>Logout</button>
 {/if}

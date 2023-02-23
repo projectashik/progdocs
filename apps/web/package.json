@@ -16,6 +16,7 @@
     "@neoconfetti/svelte": "^1.0.0",
     "@supabase/auth-helpers-sveltekit": "^0.8.7",
     "@supabase/supabase-js": "^2.8.0",
+    "daisyui": "^2.51.0",
     "felte": "^1.2.7",
     "svelte-french-toast": "^1.0.3",
     "ui": "workspace:*",

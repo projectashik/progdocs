@@ -5,28 +5,32 @@
 	import { confetti } from '@neoconfetti/svelte';
 	import { createForm } from 'felte';
 	import { toast } from 'svelte-french-toast';
-	import { Button, Input, Paper, Text } from 'ui';
+	import { Button, Input, Text } from 'ui';
 	import { z } from 'zod';
 
 	const loginSchema = z.object({
-		email: z.string({
-			required_error: 'Email is required',
-		}).email("Email must be a valid email address"),
-	})
+		email: z
+			.string({
+				required_error: 'Email is required'
+			})
+			.email('Email must be a valid email address')
+	});
 
 	let loading = false;
 	let email: string;
 
 	const handleLogin = async (values) => {
-		loading= true;
+		loading = true;
 		await sb.auth.signInWithOtp({ email: values.email });
 	};
 
-	let loginButton;
-
 	let showConfetti = false;
 
-	const {form: loginForm, errors, setErrors } = createForm({
+	const {
+		form: loginForm,
+		errors,
+		setErrors
+	} = createForm({
 		onSubmit: handleLogin,
 		onSuccess: async () => {
 			loading = false;
@@ -34,39 +38,39 @@
 			setTimeout(() => {
 				showConfetti = false;
 			}, 3000);
-			toast.success("Check your email for a login link");
+			toast.success('Check your email for a login link');
 		},
 		onError: (error) => {
 			loading = false;
-			setErrors('email', error.message)
-			console.log('error:', error)
+			setErrors('email', error.message);
+			console.log('error:', error);
 		},
 		extend: validator({
-			schema: loginSchema,
+			schema: loginSchema
 		})
-	})
+	});
 </script>
 
-<Paper shadow="lg" className="max-w-md mx-auto mt-20 rounded-md border p-6">
+<div class="bg-white max-w-md mx-auto mt-20 rounded-md border p-6">
 	<form use:loginForm class="relative row flex-center flex flex-col space-y-3">
 		<Text size="2xl">Login</Text>
 		<Input
-				error={$errors.email}
-				className="text-lg"
+			error={$errors.email}
+			className="text-lg"
 			name="email"
 			label="Email"
 			placeholder="Your Email"
 			type="text"
 		/>
 		<div>
-			<Button bind:this={loginButton} icon={FeLogin} variant="primary" iconPosition="right" type="submit" {loading}
+			<Button icon={FeLogin} variant="primary" iconPosition="right" type="submit" {loading}
 				>Login</Button
 			>
 			{#if showConfetti}
 				<div>
-					<div class="absolute inset-0" use:confetti={{ duration: 1500  }} />
+					<div class="absolute inset-0" use:confetti={{ duration: 1500 }} />
 				</div>
 			{/if}
 		</div>
 	</form>
-</Paper>
+</div>
