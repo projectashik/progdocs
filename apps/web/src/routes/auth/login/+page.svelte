@@ -1,11 +1,11 @@
 <script lang="ts">
-	import FeLogin from '$lib/icons/FeLogin.svelte';
 	import { sb } from '$lib/sb';
 	import { validator } from '@felte/validator-zod';
 	import { confetti } from '@neoconfetti/svelte';
+	import clsx from 'clsx';
 	import { createForm } from 'felte';
 	import { toast } from 'svelte-french-toast';
-	import { Button, Input, Text } from 'ui';
+	import { IconGithub, Input, Paper, Text } from 'ui';
 	import { z } from 'zod';
 
 	const loginSchema = z.object({
@@ -51,7 +51,7 @@
 	});
 </script>
 
-<div class="bg-white max-w-md mx-auto mt-20 rounded-md border p-6">
+<Paper className="max-w-md mx-auto mt-20 rounded-md border	 p-6">
 	<form use:loginForm class="relative row flex-center flex flex-col space-y-3">
 		<Text size="2xl">Login</Text>
 		<Input
@@ -63,8 +63,11 @@
 			type="text"
 		/>
 		<div>
-			<Button icon={FeLogin} variant="primary" iconPosition="right" type="submit" {loading}
-				>Login</Button
+			<button
+				class={clsx('btn btn-primary', {
+					loading: loading
+				})}
+				type="submit">Login</button
 			>
 			{#if showConfetti}
 				<div>
@@ -73,4 +76,13 @@
 			{/if}
 		</div>
 	</form>
-</div>
+	<div class="divider">OR</div>
+	<button
+		class="btn gap-2  w-full"
+		on:click={() =>
+			sb.auth.signInWithOAuth({
+				provider: 'github'
+			})}
+		><IconGithub width="20" height="20" /> SignIn with GitHub
+	</button>
+</Paper>

@@ -15,16 +15,6 @@
 	export let className: string;
 	export let styles = [];
 
-	const variantStyles = {
-		default: 'text-gray-900 dark:text-gray-50',
-		muted: 'text-gray-500 dark:text-gray-400',
-		primary: 'text-primary-600 dark:text-primary-400',
-		success: 'text-green-600 dark:text-green-400',
-		danger: 'text-red-600 dark:text-red-400',
-		warning: 'text-orange-600 dark:text-orange-400',
-		info: 'text-sky-600 dark:text-sky-400'
-	};
-
 	const sizeStyles = {
 		xs: 'text-xs',
 		sm: 'text-sm',
@@ -38,20 +28,9 @@
 		'6xl': 'text-6xl font-semibold'
 	};
 
-	export let variant:
-		| 'default'
-		| 'muted'
-		| 'primary'
-		| 'secondary'
-		| 'success'
-		| 'danger'
-		| 'warning'
-		| 'info' = 'default';
-
 	export let size: 'xs' | 'sm' | 'md' | 'lg' | 'xl' | '2xl' | '3xl' | '4xl' | '5xl' | '6xl' = 'sm';
 
 	$: {
-		styles.push(variantStyles[variant]);
 		styles.push(sizeStyles[size]);
 	}
 </script>

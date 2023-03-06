@@ -12,6 +12,7 @@
     "format": "prettier --write --ignore-path=../../.prettierignore ."
   },
   "dependencies": {
+    "octokit": "^2.0.14",
     "ui": "workspace:*"
   },
   "devDependencies": {

@@ -2,22 +2,37 @@
 	import clsx from 'clsx';
 	import InputContainer from './InputContainer.svelte';
 
-	export let label = undefined;
-	export let id = undefined;
-	export let error = undefined;
-	export let className = undefined;
+	let label;
+	let id;
+	let error;
+	let type = 'text';
+	let rightText;
+	let leftText;
+	$: {
+		if (label && !id) {
+			id = label.replace(/\s+/g, '-').toLowerCase();
+		} else {
+			id = `input-${Math.random().toString(36).substr(2, 9)}`;
+		}
+	}
+	export { label, id, error, rightText, leftText };
 </script>
 
-<InputContainer {label} {id} {error} {...$$restProps}>
-	<input
-		{id}
-		class={clsx(
-			'flex-1 py-2.5  text-sm px-2 focus:outline-none bg-transparent dark:text-gray-100 text-gray-700',
-			className
-		)}
-		{...$$restProps}
-	/>
-	<span slot="rightItem">
-		<slot name="rightItem" />
-	</span>
+<InputContainer {label} {id} {error}>
+	<div class={clsx({ 'input-group': rightText || leftText })}>
+		{#if leftText}
+			<span class="text-gray-600">{leftText}</span>
+		{/if}
+		<input
+			{type}
+			{id}
+			class={clsx('input input-bordered w-full', {
+				'input-error': error
+			})}
+			{...$$restProps}
+		/>
+		{#if rightText}
+			<span class="text-gray-600">{rightText}</span>
+		{/if}
+	</div>
 </InputContainer>

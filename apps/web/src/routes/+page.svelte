@@ -19,5 +19,7 @@
 	<Text as="h1" size="lg">Welcome {$session.user.email}</Text>
 	<Text>I am logged in!</Text>
 
+	<a href="/dashboard" class="btn btn-primary">Dashboard</a>
+
 	<button class="btn btn-primary" on:click={onLogout}>Logout</button>
 {/if}

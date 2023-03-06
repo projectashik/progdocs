@@ -1,30 +1,19 @@
 <script lang="ts">
-	import clsx from "clsx";
-	import Text from "../Text/Text.svelte";
+	let id;
+	let label;
+	let error;
+	let info;
 
-
-	export let label = undefined;
-	export let id = undefined;
-	export let error = undefined;
+	export { id, label, error };
 </script>
 
-<div class="flex flex-col">
-	{#if label}
-		<label class="block text-sm mb-0.5 dark:text-gray-100 font-medium text-gray-700" for={id}
-			>{label}</label
-		>
-	{/if}
-	<div
-		class={clsx(
-			"flex w-full items-center border px-2 dark:bg-neutral-700 dark:border-neutral-500  focus-within:ring-2 ring-primary-600 rounded-lg bg-white",{
-				"border-red-600 dark:border-red-400": error,
- }		)}
-	>
-		<slot />
-		<slot name="rightItem" />
-	</div>
-
+<div class="form-control w-full ">
+	<!-- svelte-ignore a11y-label-has-associated-control -->
+	<label for={id} class="label">
+		<span class="label-text">{label}</span>
+	</label>
+	<slot />
 	{#if error}
-		<Text as="p" variant="danger" className="mt-0.5">{error}</Text>
+		<span class="label-text-alt mt-1 text-red-500">{error}</span>
 	{/if}
 </div>

@@ -1,17 +1,21 @@
 {
-  "private": true,
-  "scripts": {
-    "build": "turbo run build",
-    "dev": "turbo run dev",
-    "lint": "turbo run lint",
-    "format": "prettier --write ."
-  },
-  "devDependencies": {
-    "eslint": "^8.0.0",
-    "eslint-config-custom": "workspace:*",
-    "prettier": "^2.7.1",
-    "prettier-plugin-svelte": "^2.8.1",
-    "turbo": "latest"
-  },
-  "packageManager": "pnpm@7.15.0"
+	"private": true,
+	"scripts": {
+		"build": "turbo run build",
+		"dev": "turbo run dev",
+		"lint": "turbo run lint",
+		"format": "prettier --write .",
+		"update-types": "pnpx supabase gen types typescript --project-id yruuulptwokskynifrgb > ./apps/web/src/types/supabase.ts"
+	},
+	"devDependencies": {
+		"eslint": "^8.0.0",
+		"eslint-config-custom": "workspace:*",
+		"prettier": "^2.7.1",
+		"prettier-plugin-svelte": "^2.8.1",
+		"turbo": "latest"
+	},
+	"packageManager": "pnpm@7.15.0",
+	"dependencies": {
+		"supabase": "^1.38.7"
+	}
 }
