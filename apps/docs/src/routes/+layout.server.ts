@@ -32,6 +32,7 @@ export const load: PageServerLoad = async (event) => {
 	// });
 	const content = await getFileContent(repo, 'index.md');
 	return {
-		content
+		content,
+		docs: data?.data
 	};
 };

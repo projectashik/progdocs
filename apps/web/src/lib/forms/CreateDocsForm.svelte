@@ -55,7 +55,8 @@
 			const { error, status, data } = await sb.from('docs').insert({
 				title: values.title,
 				subdomain: values.subDomain,
-				userId: session.user.id
+				userId: session.user.id,
+				github_url: values.githubUrl
 			});
 			console.log(data, status, error);
 			if (error) {
