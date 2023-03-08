@@ -13,6 +13,7 @@
   },
   "dependencies": {
     "@supabase/supabase-js": "^2.8.0",
+    "@sveltejs/adapter-vercel": "^2.3.0",
     "daisyui": "^2.51.0",
     "front-matter": "^4.0.2",
     "git-url-parse": "^13.1.0",

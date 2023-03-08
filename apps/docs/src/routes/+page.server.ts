@@ -4,7 +4,11 @@ import getFileContent from '../lib/getFile';
 import { sb } from '../lib/sb';
 import type { PageServerLoad } from './$types';
 
-export const prerender = true;
+export const config = {
+	isr: {
+		expiration: 60
+	}
+};
 
 export const load: PageServerLoad = async (event) => {
 	// console.log(event);
