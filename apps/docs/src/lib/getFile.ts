@@ -12,7 +12,7 @@ const getFileContent = async (repoLink: string, fileName: string, gitHubAccessTo
 	const fileContent = await octokit.rest.repos.getContent({
 		owner: repoLinkData?.owner as string,
 		repo: repoLinkData?.full_name.split('/')[1] as string,
-		path: `docs/${fileName}`
+		path: `${fileName}`
 	});
 
 	const decodedFileContent = Buffer.from(

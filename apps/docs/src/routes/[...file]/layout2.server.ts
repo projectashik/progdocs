@@ -1,8 +1,8 @@
 import { env } from '$env/dynamic/private';
 import { getSidebar } from '$lib/progdocs';
 import { Octokit } from 'octokit';
-import { sb } from '../lib/sb';
-import type { LayoutServerLoad } from './$types';
+import type { LayoutServerLoad } from '../$types';
+import { sb } from '../../lib/sb';
 
 export const config = {
 	isr: {

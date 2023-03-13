@@ -1,5 +1,4 @@
-import { env } from '$env/dynamic/private';
-import { Octokit } from 'octokit';
+import { readConfig } from '$lib/progdocs';
 import getFileContent from '../lib/getFile';
 import { sb } from '../lib/sb';
 import type { PageServerLoad } from './$types';
@@ -26,16 +25,18 @@ export const load: PageServerLoad = async (event) => {
 	}
 
 	const repo = data?.data.github_url;
-	const octokit = new Octokit({
-		auth: env.GITHUB_TOKEN
-	});
-	// const { data } = await octokit.rest.repos.getContent({
-	// 	owner: repo.split('/')[0],
-	// 	repo: repo.split('/')[1],
-	// 	path: 'docs/index.md'
-	// });
-	const content = await getFileContent(repo, 'index.md');
+
+	const content = await getFileContent(repo, 'docs/index.md');
+	let config;
+	try {
+		config = await readConfig(repo);
+		console.log(config);
+	} catch (error) {
+		console.log('Config Error');
+	}
 	return {
-		content
+		content,
+		config,
+		docs: data?.data
 	};
 };
