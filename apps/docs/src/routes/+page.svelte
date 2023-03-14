@@ -9,6 +9,7 @@
 
 <svelte:head>
 	<title>{`${data.docs.title}`}</title>
+	<meta name="description" content={data.docs.description} />
 </svelte:head>
 
 <main>
@@ -48,7 +49,7 @@
 {#if data.developers}
 	<div class="bg-gray-100">
 		<div class="max-w-screen-xl px-4 py-10 mx-auto">
-			<h3 class="font-bold text-2xl">Developed By</h3>
+			<h2 class="font-bold text-2xl">Developed By</h2>
 			<div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 mt-3">
 				{#each data.developers as author}
 					<div class="bg-white flex flex-col items-center p-9 rounded-md">

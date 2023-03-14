@@ -19,6 +19,7 @@
 
 <svelte:head>
 	<title>{`${data.frontmatter.attributes.title} - ${data.docs.title}`}</title>
+	<meta name="description" content={data.frontmatter.attributes.description} />
 </svelte:head>
 
 <div class="prose max-w-full px-3 border-b pb-5">
