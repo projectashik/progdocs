@@ -2,11 +2,32 @@
 @tailwind components;
 @tailwind utilities;
 
-.icon-link {
+*,
+*::before,
+*::after {
+	scroll-behavior: smooth;
+}
+
+.prose img {
+	max-width: 100%;
+	@apply shadow-lg rounded;
+}
+
+.grid-template-main {
+	position: relative;
+	grid-template-columns: 200px minmax(0, 1fr) 200px;
+}
+
+@media (max-width: 768px) {
+	.grid-template-main {
+		grid-template-columns: 1fr;
+	}
+}
+/* .icon-link {
 	width: 40px;
 	height: 40px;
 	display: block;
 	position: absolute;
 	transform: translateX(-40px);
 	background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20' fill='currentColor'%3E%3Cpath fill-rule='evenodd' d='M4 6a2 2 0 012-2h4a1 1 0 010 2H6a1 1 0 00-1 1v4a1 1 0 11-2 0V6zm12 8a1 1 0 01-1 1h-4a1 1 0 110-2h4a1 1 0 001-1v-4a1 1 0 112 0v4z' clip-rule='evenodd'/%3E%3C/svg%3E");
-}
+} */

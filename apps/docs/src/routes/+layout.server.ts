@@ -1,6 +1,4 @@
-import { env } from '$env/dynamic/private';
 import { getSidebar } from '$lib/progdocs';
-import { Octokit } from 'octokit';
 import { sb } from '../lib/sb';
 import type { LayoutServerLoad } from './$types';
 
@@ -22,20 +20,11 @@ export const load: LayoutServerLoad = async (event) => {
 	}
 	if (subdomain) {
 		data = await sb.from('docs').select('*').eq('subdomain', subdomain).single();
-		console.log('Layout', data);
+		// console.log('Layout', data);
 	}
 
 	const repo = data?.data.github_url;
 	// console.log(data);
-	const octokit = new Octokit({
-		auth: env.GITHUB_TOKEN
-	});
-	// const { data } = await octokit.rest.repos.getContent({
-	// 	owner: repo.split('/')[0],
-	// 	repo: repo.split('/')[1],
-	// 	path: 'docs/index.md'
-	// });
-	// const content = await getFileContent(repo, 'docs/index.md');
 	let config;
 	let sidebar;
 	try {

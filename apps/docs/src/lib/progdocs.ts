@@ -42,3 +42,16 @@ export const getSidebar = async (repo: string) => {
 
 	return Promise.all(sidebarContent);
 };
+
+export const getLandingContent = async (repo: string) => {
+	const config = await readConfig(repo);
+	const landingContentFile = config.landingMarkdown;
+
+	if (!landingContentFile) {
+		return null;
+	}
+
+	const fileContent = await getFileContent(repo, `docs/${landingContentFile}`);
+	const frontmatter = matter.default(fileContent);
+	return fileContent;
+};
