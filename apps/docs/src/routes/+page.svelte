@@ -16,7 +16,9 @@
 	<section id="hero" class="">
 		<div class="max-w-screen-xl px-4 mx-auto py-28 flex items-center">
 			<div class="flex flex-col h-full w-full">
-				<h1 class="text-8xl max-w-2xl font-bold ">{data.docs.description}</h1>
+				<h1 class="text-8xl max-w-2xl font-bold ">
+					{data.docs.description || data.config.description}
+				</h1>
 
 				<p class="text-xl mt-4">
 					<!-- {(data.config && data.config.description) || data.docs.description} -->

@@ -1,4 +1,4 @@
-import { getSidebar } from '$lib/progdocs';
+import { getSidebar, readConfig } from '$lib/progdocs';
 import { sb } from '../lib/sb';
 import type { LayoutServerLoad } from './$types';
 
@@ -27,6 +27,7 @@ export const load: LayoutServerLoad = async (event) => {
 	// console.log(data);
 	let config;
 	let sidebar;
+
 	try {
 		// config = await readConfig(repo);
 		sidebar = await getSidebar(repo);
@@ -34,9 +35,16 @@ export const load: LayoutServerLoad = async (event) => {
 	} catch (error) {
 		console.log('Config Error');
 	}
+
+	try {
+		config = await readConfig(repo);
+	} catch (error) {
+		console.log('Config Error');
+	}
 	return {
 		// content,
 		sidebar,
-		docs: data?.data
+		docs: data?.data,
+		config
 	};
 };
