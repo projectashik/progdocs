@@ -1,22 +1,26 @@
-import { getSidebar, readConfig } from '$lib/progdocs';
-import { error, type Config } from '@sveltejs/kit';
-import { sb } from '../lib/sb';
+import { DOCS_URL } from '$env/static/private';
+import { readConfig } from '$lib/progdocs';
+import { sb } from '$lib/sb';
+import type { Config } from '@sveltejs/adapter-vercel';
+import { error } from '@sveltejs/kit';
 import type { LayoutServerLoad } from './$types';
 
 export const config: Config = {
-	isr: {
-		expiration: 60
-	}
+	runtime: 'edge'
 };
 
 export const load: LayoutServerLoad = async (event) => {
-	// console.log(event);
 	let subdomain;
 	let domain;
 	let data;
+	let config;
 
-	if (event.url.host.includes('.')) {
-		subdomain = event.url.host.split('.')[0];
+	const docsUrl = process.env.NODE_ENV === 'production' ? DOCS_URL : 'localhost:3001';
+
+	if (event.url.host.includes(docsUrl)) {
+		if (event.url.host.includes('.')) {
+			subdomain = event.url.host.split('.')[0];
+		}
 	} else {
 		domain = event.url.host;
 	}
@@ -26,43 +30,30 @@ export const load: LayoutServerLoad = async (event) => {
 			data = await sb.from('docs').select('*').eq('subdomain', subdomain).single();
 		} catch (err) {
 			throw error(404, {
-				message: 'Site not found - subdomain'
+				message: 'Site not found- subdomain error'
 			});
 		}
-		// console.log('Layout', data);
 	} else {
 		throw error(404, {
-			message: 'Site not found - !domain'
+			message: 'Site not found -  subdomain else'
 		});
 	}
 
-	if (!data) {
+	if (!data.data) {
 		throw error(404, {
-			message: 'Site not found - !data'
+			message: 'Site not found -  data'
 		});
 	}
 
-	const repo = data?.data.github_url;
-	// console.log(data);
-	let config;
-	let sidebar;
-
 	try {
-		// config = await readConfig(repo);
-		sidebar = await getSidebar(repo);
-		console.log(sidebar);
-	} catch (error) {
-		console.log('Config Error');
+		config = await readConfig(data.data.github_url);
+	} catch (err) {
+		throw error(400, {
+			message: 'Either configuration file(progdocs.json) not found or is invalid.'
+		});
 	}
 
-	try {
-		config = await readConfig(repo);
-	} catch (error) {
-		console.log('Config Error');
-	}
 	return {
-		// content,
-		sidebar,
 		docs: data?.data,
 		config
 	};

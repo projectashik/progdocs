@@ -1,4 +1,5 @@
 import { getUser } from '$lib/getUser';
+import { error } from '@sveltejs/kit';
 import getFileContent from '../lib/getFile';
 import type { PageServerLoad } from './$types';
 
@@ -9,16 +10,14 @@ export const config = {
 };
 
 export const load: PageServerLoad = async (event) => {
-	const { docs, sidebar, config } = await event.parent();
+	let landingContent;
+	let developers;
+
+	const { docs, config } = await event.parent();
 
 	const repo = docs.github_url;
 
 	const content = await getFileContent(repo, 'docs/index.md');
-
-	let landingContent;
-	let developers;
-	let previousPage;
-	let nextPage;
 
 	try {
 		landingContent = config.landingMarkdown
@@ -43,8 +42,10 @@ export const load: PageServerLoad = async (event) => {
 				})
 			);
 		}
-	} catch (error) {
-		console.log('Config Error');
+	} catch (err) {
+		throw error(400, {
+			message: 'Configuration file error.'
+		});
 	}
 
 	return {

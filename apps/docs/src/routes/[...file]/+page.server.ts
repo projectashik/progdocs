@@ -1,62 +1,55 @@
 import getFileContent from '$lib/getFile';
-import { sb } from '$lib/sb';
 import { parseToc } from '$lib/toc';
+import { error } from '@sveltejs/kit';
 import fm from 'front-matter';
-import type { PageServerLoad } from './$types';
+import type { PageServerLoad } from '../$types';
 
-export const config = {
-	isr: {
-		expiration: 4
+// export const config: Config = {
+// 	isr: {
+// 		expiration: 60
+// 	}
+// };
+
+export const load: PageServerLoad = async ({ parent, params }) => {
+	let content;
+	let nextPage: any;
+	let prevPage: any;
+
+	const { docs, config, sidebar } = await parent();
+
+	let { file }: { file: any } = params;
+
+	const repo = docs.github_url;
+
+	try {
+		content = await getFileContent(repo, `docs/${file}.md`);
+	} catch (err) {
+		console.log(err);
+		throw error(404, {
+			message: 'Page not found'
+		});
 	}
-};
 
-export const load: PageServerLoad = async (event) => {
-	const parentData = event.parent();
-	let subdomain;
-	let domain;
-	let data;
-
-	const { file } = event.params;
-	// console.log(file);
-	if (event.url.host.includes('.')) {
-		subdomain = event.url.host.split('.')[0];
-	} else {
-		domain = event.url.host;
-	}
-	if (subdomain) {
-		data = await sb.from('docs').select('*').eq('subdomain', subdomain).single();
-		// console.log(data);
-	}
-
-	const repo = data?.data.github_url;
-
-	const content = await getFileContent(repo, `docs/${file}.md`);
-	const sidebar = (await parentData).sidebar;
-
-	// console.log({ sidebar, mainIndex });
-	let next: any, prev: any;
-	// the sidebar structure is [{title, link, children: [{title, link}]}]
-	// console.log(sidebar?.[index]);
-	sidebar?.map((item) => {
+	sidebar?.map((item: any) => {
 		if (item.children) {
 			item.children.map((child: any) => {
 				if (child.link === file) {
 					const index = item.children.indexOf(child);
 					if (index === 0) {
-						next = item.children[index + 1];
+						nextPage = item.children[index + 1];
 					} else if (index === item.children.length - 1) {
-						prev = item.children[index - 1];
+						prevPage = item.children[index - 1];
 					} else {
-						next = item.children[index + 1];
-						prev = item.children[index - 1];
+						nextPage = item.children[index + 1];
+						prevPage = item.children[index - 1];
 					}
 
-					if (!prev) {
-						prev = sidebar[sidebar.indexOf(item) - 1];
+					if (!prevPage) {
+						prevPage = sidebar[sidebar.indexOf(item) - 1];
 					}
 
-					if (!next) {
-						next = sidebar[sidebar.indexOf(item) + 1];
+					if (!nextPage) {
+						nextPage = sidebar[sidebar.indexOf(item) + 1];
 					}
 				}
 			});
@@ -65,30 +58,31 @@ export const load: PageServerLoad = async (event) => {
 				const index = sidebar.indexOf(item);
 
 				if (index === 0) {
-					next = sidebar[index + 1];
+					nextPage = sidebar[index + 1];
 				} else if (index === sidebar.length - 1) {
-					prev = sidebar[index - 1];
+					prevPage = sidebar[index - 1];
 				} else {
-					next = sidebar[index + 1];
-					prev = sidebar[index - 1];
+					nextPage = sidebar[index + 1];
+					prevPage = sidebar[index - 1];
 				}
 
-				if (next && next.children) next = next.children[0];
-				if (prev && prev.children) prev = prev.children[prev.children.length - 1];
+				if (nextPage && nextPage.children) nextPage = nextPage.children[0];
+				if (prevPage && prevPage.children)
+					prevPage = prevPage.children[prevPage.children.length - 1];
 			}
 		}
 	});
 
-	const frontmatter = fm(content);
 	const toc = parseToc(content);
-	// console.log('Page Content: ', content);
+	const frontmatter = fm(content);
+
 	return {
 		content,
 		toc,
-		frontmatter: frontmatter,
+		frontmatter,
+		next: nextPage,
+		prev: prevPage,
 		config,
-		docs: data?.data,
-		next,
-		prev
+		docs
 	};
 };

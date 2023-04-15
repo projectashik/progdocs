@@ -4,23 +4,11 @@
 	export let data: LayoutServerData;
 
 	let menuOpen = false;
+
+	console.log(data);
 </script>
 
 <main>
-	<!-- <section id="hero" class="bg-gray-200">
-		<div class="max-w-screen-xl mx-auto py-16 flex items-center">
-			<div class="flex flex-col h-full w-full">
-				<h1 class="text-7xl font-bold text-center ">{data.docs.title}</h1>
-				<p class="text-xl text-center max-w-lg mx-auto mt-4">{data.docs.description || ''}</p>
-
-				<div class="flex justify-center mt-4">
-					<a href={`https://github.com/${data.docs.github_url}`} target="_blank " class="btn"
-						>Github</a
-					>
-				</div>
-			</div>
-		</div>
-	</section> -->
 	<div class="bg-gray-100 z-10 lg:hidden sticky top-20">
 		<div class="max-w-screen-xl  px-4 flex flex-col items-start lg:px-8 mx-auto py-4">
 			<button
