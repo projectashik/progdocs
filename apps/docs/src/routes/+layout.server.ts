@@ -6,7 +6,7 @@ import { error } from '@sveltejs/kit';
 import type { LayoutServerLoad } from './$types';
 
 export const config: Config = {
-	runtime: 'edge'
+	runtime: 'nodejs18.x'
 };
 
 export const load: LayoutServerLoad = async (event) => {
