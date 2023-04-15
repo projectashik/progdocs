@@ -8,7 +8,7 @@
 	const docs = createQuery({
 		queryKey: ['docs'],
 		queryFn: async () =>
-			await sb.from('docs').select('*').eq('userId', $sessionStore.user.id).order('created_at', {
+			await sb.from('docs').select('*').eq('user_id', $sessionStore.user.id).order('created_at', {
 				ascending: false
 			})
 	});

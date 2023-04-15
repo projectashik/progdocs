@@ -1,7 +1,5 @@
 import { getUser } from '$lib/getUser';
-import { readConfig } from '$lib/progdocs';
 import getFileContent from '../lib/getFile';
-import { sb } from '../lib/sb';
 import type { PageServerLoad } from './$types';
 
 export const config = {
@@ -11,32 +9,18 @@ export const config = {
 };
 
 export const load: PageServerLoad = async (event) => {
-	// console.log(event);
-	let subdomain;
-	let domain;
-	let data;
-	if (event.url.host.includes('.')) {
-		subdomain = event.url.host.split('.')[0];
-	} else {
-		domain = event.url.host;
-	}
-	if (subdomain) {
-		data = await sb.from('docs').select('*').eq('subdomain', subdomain).single();
-		console.log(data);
-	}
+	const { docs, sidebar, config } = await event.parent();
 
-	const repo = data?.data.github_url;
+	const repo = docs.github_url;
 
 	const content = await getFileContent(repo, 'docs/index.md');
 
-	let config;
 	let landingContent;
 	let developers;
 	let previousPage;
 	let nextPage;
 
 	try {
-		config = await readConfig(repo);
 		landingContent = config.landingMarkdown
 			? await getFileContent(repo, `docs/${config?.landingMarkdown}`)
 			: '';
@@ -67,7 +51,7 @@ export const load: PageServerLoad = async (event) => {
 		content,
 		config,
 		developers,
-		docs: data?.data,
+		docs,
 		landingContent
 	};
 };

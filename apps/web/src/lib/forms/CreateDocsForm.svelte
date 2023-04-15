@@ -33,6 +33,7 @@
 			)
 	});
 
+	import { goto } from '$app/navigation';
 	import { Input } from 'ui';
 	import { z } from 'zod';
 	import { sessionStore } from '../../stores/authStore';
@@ -55,7 +56,7 @@
 			const { error, status, data } = await sb.from('docs').insert({
 				title: values.title,
 				subdomain: values.subDomain,
-				userId: session.user.id,
+				user_id: session.user.id,
 				github_url: values.githubUrl
 			});
 			console.log(data, status, error);
@@ -72,6 +73,10 @@
 				queryClient.invalidateQueries({
 					queryKey: ['docs']
 				});
+
+				const res = await sb.from('docs').select('*').eq('subdomain', values.subDomain).single();
+
+				goto(`/dashboard/docs/${res.data.id}`);
 
 				reset();
 			}
