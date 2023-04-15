@@ -6,8 +6,7 @@ import type { LayoutServerLoad } from './$types';
 export const config: Config = {
 	isr: {
 		expiration: 60
-	},
-	runtime: 'edge'
+	}
 };
 
 export const load: LayoutServerLoad = async (event) => {
