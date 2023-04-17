@@ -1,5 +1,4 @@
 <script>
-	import { goto, invalidate } from '$app/navigation';
 	import SettingsDelete from '$lib/components/SettingsSections/SettingsDelete.svelte';
 	import { github } from '$lib/github';
 	import { sb } from '$lib/sb';
@@ -53,14 +52,7 @@
 
 			toast.success('Doc details updated successfully');
 
-			//
-			goto(`/dashboard/docs/${data.doc.id}/settings/general`);
-
 			useQueryClient().invalidateQueries(['docs', data.doc.id]);
-
-			await invalidate(`/dashboard/docs/${data.doc.id}/settings/general`)
-				.then((res) => console.log(res))
-				.catch((err) => console.log(err));
 			loading = false;
 		} catch (error) {
 			toast.error('Error updating doc');

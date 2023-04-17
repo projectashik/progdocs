@@ -21,7 +21,9 @@
 
 	const handleLogin = async (values) => {
 		loading = true;
-		await sb.auth.signInWithOtp({ email: values.email });
+		await sb.auth.signInWithOtp({ email: values.email, options: {
+			emailRedirectTo: window.location.href
+		} });
 	};
 
 	let showConfetti = false;

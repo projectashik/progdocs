@@ -6,25 +6,29 @@
 			label: 'General',
 			desc: 'Site Details and Metadata',
 			link: `settings/general`,
-			icon: IconSettings
+			icon: IconSettings,
+			disabled: false
 		},
 		{
 			label: 'Navigation',
 			desc: 'Nav links and CTA',
 			link: `settings/navigation`,
-			icon: IconSettings
+			icon: IconSettings,
+			disabled: true
 		},
 		{
 			label: 'Code Injection',
 			desc: 'Inject thirdparty scripts',
 			link: `settings/code-injection`,
-			icon: IconSettings
+			icon: IconSettings,
+			disabled: true
 		},
 		{
 			label: 'Custom Domains',
 			desc: 'Map your custom domains',
 			link: `domains`,
-			icon: IconGlobe
+			icon: IconGlobe,
+			disabled: true
 		}
 	];
 </script>
