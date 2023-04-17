@@ -55,6 +55,7 @@
 			useQueryClient().invalidateQueries(['docs', data.doc.id]);
 			loading = false;
 		} catch (error) {
+			console.log(error);
 			toast.error('Error updating doc');
 			loading = false;
 		}
