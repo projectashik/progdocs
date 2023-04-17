@@ -4,11 +4,15 @@ title: Getting Started
 
 ## Introduction
 
-ProgDocs - Documentation for your programs
+**ProgDocs** - Documentation for your programs
 
-ProgDocs is a documentation generator for your programs. It is designed to be used with your programs, not as a standalone documentation generator.
+**ProgDocs** is a documentation generator for your programs. It is designed to be used with your programs, not as a standalone documentation generator.
 
 It converts your boring markdown files into a beautiful website.
+
+You'll get subdomain for your documentation. For example, if your project is `example`, then your documentation will be available at `example.progdocs.tech`.
+
+Demo: [docs.progdocs.tech](https://docs.progdocs.tech)
 
 ## Setup Documentation
 
