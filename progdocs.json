@@ -1,9 +1,5 @@
 {
 	"$schema": "https://progdocs.tech/api/schema.json",
 	"description": "Convert your boring markdowns to beautiful docs",
-	"sidebar": [
-		{
-			"file": "README.md"
-		}
-	]
+	"sidebar": []
 }
