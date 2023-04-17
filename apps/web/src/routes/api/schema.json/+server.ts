@@ -56,8 +56,7 @@ export function GET() {
 							}
 						},
 						required: ['title', 'children']
-					},
-					{
+					} || {
 						type: 'object',
 						properties: {
 							file: {
