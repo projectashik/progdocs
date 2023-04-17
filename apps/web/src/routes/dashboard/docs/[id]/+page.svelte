@@ -63,6 +63,14 @@
 							<li><code>`landingMarkdown:` is not listed</code></li>
 						{/if}
 					</ul>
+
+					<a
+						rel="noreferrer"
+						target="_blank"
+						href={`https://github.com/${data.doc.github_url}/edit/main/progdocs.json`}
+					>
+						Edit
+					</a>
 				</div>
 
 				<pre class="bg-gray-900 p-3 rounded text-white">{JSON.stringify(data.config, null, 2)}</pre>
