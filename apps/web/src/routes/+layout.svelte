@@ -39,6 +39,12 @@
 	});
 </script>
 
+<svelte:head>
+	<title>ProgDocs - Convert markdown to beautiful docs</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1" />
+	<link rel="icon" type="image/png" href="/favicon.png" />
+</svelte:head>
+
 <Toaster />
 <QueryClientProvider client={queryClient}>
 	<slot />

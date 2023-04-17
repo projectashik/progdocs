@@ -1,5 +1,12 @@
 {
-	"$schema": "https://progdocs.tech/api/schema.json",
-	"description": "Convert your boring markdowns to beautiful docs",
-	"sidebar": [{}]
+	"$schema": "https://www.progdocs.tech/api/schema.json",
+	"indexDoc": "getting-started.md",
+	"developers": ["projectashik"],
+	"landingMarkdown": "landing.md",
+	"sidebar": [
+		{
+			"file": "getting-started.md"
+		}
+	],
+	"description": "Convert your boring markdown files into a beautiful documentation website."
 }

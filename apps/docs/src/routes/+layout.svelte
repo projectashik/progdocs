@@ -26,6 +26,13 @@
 	export let data;
 </script>
 
+<svelte:head>
+	<title>
+		{data && data.config ? data.config.title : data.docs ? data.docs.title : ''}
+	</title>
+	<meta name="description" content={(data && data.config && data.config.description) || ''} />
+</svelte:head>
+
 <header class="shadow border-b z-10  h-20 px-4 sticky top-0 bg-white">
 	<div class="max-w-screen-xl mx-auto h-full justify-between flex items-center">
 		<a href="/" class="text-xl btn glass text-gray-700"

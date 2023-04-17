@@ -24,7 +24,7 @@
 		await sb.auth.signInWithOtp({
 			email: values.email,
 			options: {
-				emailRedirectTo: window.location.host
+				emailRedirectTo: window.location.host + '/dashboard'
 			}
 		});
 	};
@@ -86,7 +86,10 @@
 		class="btn gap-2  w-full"
 		on:click={() =>
 			sb.auth.signInWithOAuth({
-				provider: 'github'
+				provider: 'github',
+				options: {
+					emailRedirectTo: window.location.host + '/dashboard'
+				}
 			})}
 		><IconGithub width="20" height="20" /> SignIn with GitHub
 	</button>

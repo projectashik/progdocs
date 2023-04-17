@@ -7,11 +7,6 @@
 	console.log(data);
 </script>
 
-<svelte:head>
-	<title>{`${data.docs.title}`}</title>
-	<meta name="description" content={data.docs.description} />
-</svelte:head>
-
 <main>
 	<section id="hero" class="">
 		<div class="max-w-screen-xl px-4 mx-auto py-28 flex items-center">
