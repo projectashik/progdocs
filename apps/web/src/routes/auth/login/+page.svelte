@@ -21,9 +21,12 @@
 
 	const handleLogin = async (values) => {
 		loading = true;
-		await sb.auth.signInWithOtp({ email: values.email, options: {
-			emailRedirectTo: window.location.href
-		} });
+		await sb.auth.signInWithOtp({
+			email: values.email,
+			options: {
+				emailRedirectTo: window.location.host
+			}
+		});
 	};
 
 	let showConfetti = false;
@@ -40,7 +43,7 @@
 			setTimeout(() => {
 				showConfetti = false;
 			}, 3000);
-			toast.success('Check your email for a login link');
+			toast.success('Check your email for a login link. Also check the spam.');
 		},
 		onError: (error) => {
 			loading = false;
