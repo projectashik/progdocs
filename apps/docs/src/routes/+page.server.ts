@@ -17,7 +17,7 @@ export const load: PageServerLoad = async (event) => {
 
 	const repo = docs.github_url;
 
-	const content = await getFileContent(repo, 'docs/index.md');
+	// const content = await getFileContent(repo, 'docs/index.md');
 
 	try {
 		landingContent = config.landingMarkdown
@@ -49,7 +49,7 @@ export const load: PageServerLoad = async (event) => {
 	}
 
 	return {
-		content,
+		// content,
 		config,
 		developers,
 		docs,

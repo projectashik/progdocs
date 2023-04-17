@@ -1,6 +1,6 @@
 {
 	"$schema": "https://www.progdocs.tech/api/schema.json",
-	"indexDoc": "getting-started.md",
+	"indexDoc": "getting-started",
 	"developers": ["projectashik"],
 	"landingMarkdown": "landing.md",
 	"sidebar": [
@@ -8,5 +8,9 @@
 			"file": "getting-started.md"
 		}
 	],
-	"description": "Convert your boring markdown files into a beautiful documentation website."
+	"description": "Convert your boring markdown files into a beautiful documentation website.",
+	"settings": {
+		"contributors": true,
+		"editOnGitHub": true
+	}
 }
