@@ -19,88 +19,82 @@ export function GET() {
 			},
 			features: {
 				type: 'array',
-				items: [
-					{
-						type: 'object',
-						properties: {
-							title: {
-								description: 'The title of the feature',
-								type: 'string'
-							},
-							description: {
-								description: 'The description of the feature',
-								type: 'string'
-							}
+				items: {
+					type: 'object',
+					properties: {
+						title: {
+							description: 'The title of the feature',
+							type: 'string'
 						},
-						required: ['title', 'description']
-					}
-				]
+						description: {
+							description: 'The description of the feature',
+							type: 'string'
+						}
+					},
+					required: ['title', 'description']
+				}
 			},
 			sidebar: {
 				description: 'The sidebar items',
 				type: 'array',
-				items: [
-					{
-						type: 'object',
-						properties: {
-							title: {
-								description: 'The title of the sidebar item',
-								type: 'string'
-							},
-							children: {
-								type: 'array',
-								items: [
-									{
-										description: 'The title of the sidebar item',
-										type: 'string'
-									},
-									{
-										description: 'The path to the document',
-										type: 'string'
-									}
-								]
-							},
-							file: {
-								description: 'The path to the document',
-								type: 'string'
-							}
+				items: {
+					type: 'object',
+					properties: {
+						title: {
+							description: 'The title of the sidebar item',
+							type: 'string'
+						},
+						children: {
+							type: 'array',
+							items: [
+								{
+									description: 'The title of the sidebar item',
+									type: 'string'
+								},
+								{
+									description: 'The path to the document',
+									type: 'string'
+								}
+							]
+						},
+						file: {
+							description: 'The path to the document',
+							type: 'string'
 						}
 					}
-				]
+				}
 			},
 			developers: {
 				description: 'The developers',
 				type: 'array',
-				items: [
-					{
-						type: ['object', 'string'],
-						description:
-							"The github username of the developer or an object with the developer's name and github username, bio, twitter account and avatar link",
+				items: {
+					type: ['object', 'string'],
+					description:
+						"The github username of the developer or an object with the developer's name and github username, bio, twitter account and avatar link",
 
-						properties: {
-							name: {
-								description: 'The name of the developer',
-								type: 'string'
-							},
-							gh: {
-								description: 'The github username of the developer',
-								type: 'string'
-							},
-							bio: {
-								description: 'The bio of the developer',
-								type: 'string'
-							},
-							twitter: {
-								description: 'The twitter account of the developer',
-								type: 'string'
-							},
-							avatar: {
-								description: 'The avatar link of the developer',
-								type: 'string'
-							}
+					properties: {
+						name: {
+							description: 'The name of the developer',
+							type: 'string'
+						},
+						gh: {
+							description: 'The github username of the developer',
+							type: 'string'
+						},
+						bio: {
+							description: 'The bio of the developer',
+							type: 'string'
+						},
+						twitter: {
+							description: 'The twitter account of the developer',
+							type: 'string'
+						},
+						avatar: {
+							description: 'The avatar link of the developer',
+							type: 'string'
 						}
 					}
-				]
+				}
 			}
 			// settings: {
 			// 	type: 'object',
